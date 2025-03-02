@@ -1,0 +1,33 @@
+{
+  "name": "task_app",
+  "version": "1.0.0",
+  "description": "Task app ung sing nodejs in server",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sung2708/task_app.git"
+  },
+  "keywords": [
+    "task",
+    "app"
+  ],
+  "author": "sungp2708",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sung2708/task_app/issues"
+  },
+  "homepage": "https://github.com/sung2708/task_app#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.11.0",
+    "nodemon": "^3.1.9"
+  }
+}
