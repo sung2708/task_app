@@ -1,2 +1,2 @@
 # task_app
-Task app ung sing nodejs in server
+Task app using nodejs
