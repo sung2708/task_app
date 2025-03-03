@@ -4,7 +4,7 @@ var userController = {
     createUser: async function(req, res) {
         try {
             var result = await userService.createUser(req.body);
-            res.status(201).json(result); // ✅ Trả về { user, token }
+            res.status(201).json(result);
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
