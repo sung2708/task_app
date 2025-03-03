@@ -50,16 +50,13 @@ var getTasksByStatus = async (req, res) => {
         var { status } = req.params;
         var { page = 1, limit = 10 } = req.query; 
 
-        console.log("🔹 Received status:", status);
-        console.log("🔹 Page:", page, "Limit:", limit);
-
         var tasks = await taskService.getTasksByStatus(status, Number(page), Number(limit));
 
-        console.log("🔹 Tasks found:", tasks);
+        console.log("Tasks found:", tasks);
 
         res.status(200).json(tasks);
     } catch (error) {
-        console.error("❌ Error:", error);
+        console.error("Error:", error);
         res.status(400).json({ message: error.message });
     }
 };
