@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -25,7 +25,7 @@ userSchema.pre("save", async function(next) {
 });
 
 userSchema.pre("findOneAndUpdate", function(next) {
-    var update = this.getUpdate();
+    const update = this.getUpdate();
     
     if (update.role && this.getQuery()._id) {
         return next(new Error("Cannot change role directly!"));
@@ -45,6 +45,6 @@ userSchema.methods.comparePassword = async function(inputPassword) {
     return await bcrypt.compare(inputPassword, this.password);
 };
 
-var User = mongoose.model("User", userSchema, "Users");
+const User = mongoose.model("User", userSchema, "Users");
 
-module.exports = User;
+export default User;

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
-var taskSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     name: {type: String, require: true},
     description: {type: String, require: false},
     status: { type: String, enum: ['pending', 'in_process', 'completed'], default: 'pending' },
@@ -16,6 +16,6 @@ taskSchema.pre('findOneAndUpdate', function (next) {
     next();
 });
 
-var Task = mongoose.model("Task", taskSchema, "Tasks");
+const Task = mongoose.model("Task", taskSchema, "Tasks");
 
-module.exports = Task;
+export default Task;

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var groupTaskSchema = new mongoose.Schema({
+const groupTaskSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -11,6 +11,6 @@ var groupTaskSchema = new mongoose.Schema({
     tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }]
 }, { timestamps: true });
 
-var GroupTask = mongoose.model('GroupTask', groupTaskSchema,'GroupTasks');
+const GroupTask = mongoose.model('GroupTask', groupTaskSchema,'GroupTasks');
 
-module.exports = GroupTask;
+export default GroupTask;

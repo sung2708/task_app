@@ -1,9 +1,9 @@
-var groupService = require('../services/group.service');
+import groupService from '../services/group.service.js';
 
-var groupController = {
+const groupController = {
     createGroup: async function (req, res) {
         try {
-            var group = await groupService.createGroup(req.body);
+            const group = await groupService.createGroup(req.body);
             res.status(201).json(group);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -12,7 +12,7 @@ var groupController = {
 
     getAllGroups: async function (req, res) {
         try {
-            var groups = await groupService.getAllGroups();
+            const groups = await groupService.getAllGroups();
             res.status(200).json(groups);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -21,7 +21,7 @@ var groupController = {
 
     getGroupById: async function (req, res) {
         try {
-            var group = await groupService.getGroupById(req.params.id);
+            const group = await groupService.getGroupById(req.params.id);
             res.status(200).json(group);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -30,8 +30,8 @@ var groupController = {
 
     addMember: async function (req, res) {
         try {
-            var { groupId, userId } = req.body;
-            var group = await groupService.addMember(groupId, userId);
+            const { groupId, userId } = req.body;
+            const group = await groupService.addMember(groupId, userId);
             res.status(200).json(group);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -39,4 +39,4 @@ var groupController = {
     }
 }
 
-module.exports = groupController;
+export default groupController;

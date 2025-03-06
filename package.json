@@ -1,12 +1,13 @@
 {
   "name": "task_app",
   "version": "1.0.0",
-  "description": "Task app ung sing nodejs in server",
-  "main": "app",
+  "description": "Task app using Node.js in server",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sung2708/task_app.git"

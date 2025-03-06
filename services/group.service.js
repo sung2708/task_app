@@ -1,30 +1,28 @@
-var Group = require('../models/group.model');
-var User = require('../models/user.model');
+import Group from '../models/group.model.js';
+import User from '../models/user.model.js';
 
-var groupService = {
+const groupService = {
     createGroup: async function (groupData) {
-        var { name, description, createdBy, members = [] } = groupData;
+        const { name, description, createdBy, members = [] } = groupData;
 
-        // Kiểm tra xem createdBy có tồn tại không
-        var creator = await User.findById(createdBy);
+        const creator = await User.findById(createdBy);
         if (!creator) throw new Error("Creator not found");
 
-        var leader = { user: createdBy, role: 'leader' };
+        const leader = { user: createdBy, role: 'leader' };
 
-        // Kiểm tra `members` có phải là mảng không
         if (!Array.isArray(members)) {
             throw new Error("Members list must be an array");
         }
 
-        var memberList = await Promise.all(
+        const memberList = await Promise.all(
             members.map(async (userId) => {
-                var user = await User.findById(userId);
+                const user = await User.findById(userId);
                 if (!user) throw new Error(`User ${userId} not found`);
                 return { user: userId, role: 'member' };
             })
         );
 
-        var group = new Group({
+        const group = new Group({
             name,
             description,
             createdBy,
@@ -40,19 +38,19 @@ var groupService = {
     },
 
     getGroupById: async function (groupId) {
-        var group = await Group.findById(groupId).populate('members.user', 'name email role');
+        const group = await Group.findById(groupId).populate('members.user', 'name email role');
         if (!group) throw new Error('Group not found');
         return group;
     },
 
     addMember: async function (groupId, userId) {
-        var group = await Group.findById(groupId);
+        const group = await Group.findById(groupId);
         if (!group) throw new Error('Group not found');
 
-        var user = await User.findById(userId);
+        const user = await User.findById(userId);
         if (!user) throw new Error('User not found');
 
-        var isExist = group.members.some(member => member.user.toString() === userId);
+        const isExist = group.members.some(member => member.user.toString() === userId);
         if (isExist) throw new Error('User already in group');
 
         group.members.push({ user: userId, role: 'member' });
@@ -61,4 +59,4 @@ var groupService = {
     }
 };
 
-module.exports = groupService;
+export default groupService;

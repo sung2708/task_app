@@ -1,11 +1,11 @@
-var User = require('../models/user.model');
-var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-var dotenv = require('dotenv');
+import User from '../models/user.model.js';
+import bcrypt from 'bcrypt';
+import jwt from'jsonwebtoken';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-var generateToken = function(user) {
+const generateToken = function(user) {
     return jwt.sign(
         { id: user._id, role: user.role },
         process.env.JWT_SECRET, 
@@ -13,16 +13,16 @@ var generateToken = function(user) {
     );
 };
 
-var userService = {
+const userService = {
     createUser: async function(userData) {
-        var exists = await User.findOne({ email: userData.email });
+        const exists = await User.findOne({ email: userData.email });
 
         if (exists) throw new Error("User already exists");
 
-        var user = new User(userData);
+        const user = new User(userData);
         await user.save();
 
-        var token = generateToken(user);
+        const token = generateToken(user);
         return { user, token };
     },
 
@@ -31,22 +31,22 @@ var userService = {
     },
 
     getUserById: async function(userId) {
-        var user = await User.findById(userId).select('-password');
+        const user = await User.findById(userId).select('-password');
         if (!user) throw new Error("User not found");
         return user;
     },
 
     login: async function(email, password) {
-        var user = await User.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (!user) throw new Error("User not found");
 
-        var isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) throw new Error("Invalid credentials!");
 
-        var token = generateToken(user);
+        const token = generateToken(user);
         return { user, token };
     }
 };
 
-module.exports = userService;
+export default userService;

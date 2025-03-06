@@ -1,11 +1,9 @@
-var mongoose = require('mongoose');
+import Task from '../models/task.model.js'
 
-var Task = require('../models/task.model')
-
-var taskService = {
+const taskService = {
     createTask: async (taskData)=>{
         try{
-            var task = new Task(taskData);
+            const task = new Task(taskData);
             await task.save();
 
             return task;
@@ -17,7 +15,7 @@ var taskService = {
 
     getTaskById: async (taskID)=>{
         try{
-            var task = await Task.findById(taskID);
+            const task = await Task.findById(taskID);
 
             if(!task) throw new Error ('Task not found');
             return task;
@@ -29,7 +27,7 @@ var taskService = {
 
     getAllTasks: async (page = 1, limit = 10) => {
         try{
-            var task = await Task.find()
+            const task = await Task.find()
             .skip((page - 1)*limit)
             .limit(limit);
             return task;
@@ -41,7 +39,7 @@ var taskService = {
 
     updateTask: async (taskID, updateData) => {
         try {
-            var task = await Task.findOneAndUpdate({ _id: taskID }, updateData, { new: true });
+            const task = await Task.findOneAndUpdate({ _id: taskID }, updateData, { new: true });
 
             if (!task) throw new Error('Task not found');
 
@@ -76,4 +74,4 @@ var taskService = {
     }
 };
 
-module.exports = taskService;
+export default taskService;

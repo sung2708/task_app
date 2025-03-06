@@ -1,9 +1,9 @@
-var taskService = require('../services/task.service');
+import taskService from '../services/task.service.js';
 
-var taskController = {
+const taskController = {
     createTask: async (req, res) => {
         try {
-            var task = await taskService.createTask(req.body);
+            const task = await taskService.createTask(req.body);
             res.status(201).json(task);
         } 
         catch (error) {
@@ -13,7 +13,7 @@ var taskController = {
 
     getTaskById : async (req, res) => {
         try {
-            var task = await taskService.getTaskById(req.params.id);
+            const task = await taskService.getTaskById(req.params.id);
             res.status(200).json(task);
         } 
         catch (error) {
@@ -23,8 +23,8 @@ var taskController = {
 
     getAllTasks: async (req, res) => {
         try {
-            var { page, limit } = req.query;
-            var tasks = await taskService.getAllTasks(Number(page), Number(limit));
+            const { page, limit } = req.query;
+            const tasks = await taskService.getAllTasks(Number(page), Number(limit));
             res.status(200).json(tasks);
         }
         catch (error) {
@@ -34,7 +34,7 @@ var taskController = {
 
     updateTask: async (req, res) => {
         try {
-            var task = await taskService.updateTask(req.params.id, req.body);
+            const task = await taskService.updateTask(req.params.id, req.body);
             res.status(200).json(task);
         } 
         catch (error) {
@@ -54,9 +54,9 @@ var taskController = {
 
     getTasksByStatus: async (req, res) => {
         try {
-            var { status } = req.params;
-            var { page = 1, limit = 10 } = req.query; 
-            var tasks = await taskService.getTasksByStatus(status, Number(page), Number(limit));
+            const { status } = req.params;
+            const { page = 1, limit = 10 } = req.query; 
+            const tasks = await taskService.getTasksByStatus(status, Number(page), Number(limit));
             res.status(200).json(tasks);
         } 
         catch (error) {
@@ -66,4 +66,4 @@ var taskController = {
     }
 }
 
-module.exports = taskController;
+export default taskController;
