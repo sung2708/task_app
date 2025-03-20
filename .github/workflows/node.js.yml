@@ -27,9 +27,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🏗 Build project (if applicable)
-        run: yarn build --if-present
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
