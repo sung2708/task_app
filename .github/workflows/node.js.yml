@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,19 +15,25 @@ jobs:
         node-version: [18.x, 20.x, 22.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - run: yarn install
-    - run: yarn build --if-present
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🏗 Build project (if applicable)
+        run: yarn build --if-present
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🚀 Deploy lên Render
-      run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+      - name: 🚀 Deploy lên Render
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
