@@ -11,14 +11,20 @@ dotenv.config();
 var app = express();
 connectDB();
 
+app.set('view engine', 'ejs');
+app.use('/static', express.static('public'))
 app.use(express.json());
 app.use(cors());
+
+app.get('/',(req, res)=>{
+    res.render('home');
+});
 
 app.use('/api/tasks', taskRoute);
 app.use('/api/user', userRoute);
 app.use('/api/group', groupRoue);
 
-var port = process.env.PORT;
+var port = process.env.PORT || 3001;
 
 app.listen(port, () => 
     console.log(`Server running on http://localhost:${port}`)
