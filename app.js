@@ -14,10 +14,6 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-    res.render("home");
-});
-
 app.use("/api/tasks", taskRoute);
 app.use("/api/user", userRoute);
 app.use("/api/group", groupRoue);
